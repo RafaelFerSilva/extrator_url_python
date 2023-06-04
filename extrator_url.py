@@ -1,15 +1,17 @@
 import re
 
+
+def sanitiza_url(url):
+    if type(url) == str:
+        return url.strip()
+    else:
+        return ""
+
+
 class ExtratorURL:
     def __init__(self, url):
-        self.url = self.sanitiza_url(url)
+        self.url = sanitiza_url(url)
         self.valida_url()
-
-    def sanitiza_url(self, url):
-        if type(url) == str:
-            return url.strip()
-        else:
-            return ""
 
     def valida_url(self):
         if not self.url:
@@ -42,7 +44,11 @@ class ExtratorURL:
 
         return valor
 
+    def __len__(self):
+        return len(self.url)
+
 
 extratorUrl = ExtratorURL("https://bytebank.com/cambio?moedaDestino=dolar&quantidade=100&moedaOrigem=real")
+print("O tamanho da URL: ", len(extratorUrl))
 valor_quantidade = extratorUrl.get_valor_parametro("moedaDestino")
 print(valor_quantidade)
